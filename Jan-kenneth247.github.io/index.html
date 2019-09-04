@@ -1,0 +1,134 @@
+<html>
+
+<head>
+    <title>mows</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        #header {
+            background-image: url("https://www.freewebheaders.com/wp-content/gallery/other-backgrounds/purple-lonely-footie-header-design.jpg");
+            text-align: center;
+        }
+        
+        html {
+            background-color: cornflowerblue;
+        }
+        
+        h1 {
+            color: white;
+        }
+        
+        p {
+            text-align: center;
+            color: white;
+        }
+        
+        #connect-prt {
+            background-color: lightgrey;
+            width: 300px;
+            border: 15px solid lightblue;
+            padding: 40px;
+            margin: 1px;
+        }
+        
+        #publish-prt {
+            background-color: lightgrey;
+            width: 300px;
+            border: 15px solid lightblue;
+            padding: 40px;
+            margin: 1px;
+        }
+        
+        #subscribe-prt {
+            background-color: lightgrey;
+            width: 300px;
+            border: 15px solid lightblue;
+            padding: 40px;
+            margin: 1px;
+        }
+        
+        #status {
+            padding: 1%;
+            background-color: lightcoral;
+        }
+        
+        #btn-connect {
+            background-color: green;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        #btn-disconnect {
+            background-color: red;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="header">
+            <h1>MQTT</h1>
+            <br>
+            <p>My MQTT Over Websocket</p>
+        </div>
+        <hr>
+        <!-- <div class="container">
+            <h2>Host</h2>
+            <form action="/action_page.php" id="connect-prt">
+                <div class="form-group">
+                    <label for="usr host">Host:</label>
+                    <input type="text" class="form-control" id="usr connect" placeholder="iot.eclipse.org" name="username host">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Connect:</label>
+                    <button type="submit" class="btn btn-primary" id="btn-connect">Connect</button><br>
+                    <label for="pwd">Disconnect:</label>
+                    <button type="submit" class="btn btn-primary" id="btn-disconnect">Connect</button>
+                </div>
+
+            </form>
+        </div> -->
+        <div id="connect-prt" class="container">
+            <label for="host" style="text-align: center;"><b>Host:</b></label>
+            <br>
+            <input type="text" class="form-control" id="usr connect" placeholder="iot.eclipse.org" name="host" required>
+            <br>
+            <button id="btn-connect" class="btn-primary">Connect</button>
+            <br>
+            <br>
+            <button id="btn-disconnect" class="btn-primary">Dis-Connect</button>
+            <br><br>
+            <div id="status">
+                <h6 id="status">Status: Disconnected</h6>
+            </div>
+        </div>
+    </div>
+    <div id="publish-prt">
+        <label><b>Topic:</b></label>
+        <br>
+        <input type="text" placeholder="Your topic" id="topic" name="host" required>
+        <br>
+        <label><b>Payload:</b></label>
+        <br>
+        <textarea type="text" placeholder="Your payload" id="payload" name="host" required></textarea>
+        <br>
+        <br>
+        <button id="btn-publish">Publish</button>
+    </div>
+    <div id="subscribe-prt">
+        <label><b>Topic:</b></label>
+        <input type="text" id="top">
+        <button id="btn-subscribe">Subscribe</button>
+    </div>
+
+    <!-- <button id = "btn-connect">Connect<p> -->
+    <!-- <button id = "btn-publish">Publish<p> -->
+    <script src="scripts/browserMqtt.js"></script>
+    <script src="scripts/controller.js"></script>
+</body>
+
+</html>
