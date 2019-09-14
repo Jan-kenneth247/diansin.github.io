@@ -13,7 +13,7 @@
         }
         
         html {
-            background-color: cornflowerblue;
+            background-color: rgb(147, 224, 255);
         }
         
         h1 {
@@ -30,7 +30,7 @@
             width: 300px;
             border: 15px solid lightblue;
             padding: 40px;
-            margin: 1px;
+            margin: 10px;
         }
         
         #publish-prt {
@@ -38,7 +38,7 @@
             width: 300px;
             border: 15px solid lightblue;
             padding: 40px;
-            margin: 1px;
+            margin: 10px;
         }
         
         #subscribe-prt {
@@ -46,12 +46,11 @@
             width: 300px;
             border: 15px solid lightblue;
             padding: 40px;
-            margin: 1px;
+            margin: 10px;
         }
         
         #status {
-            padding: 1%;
-            background-color: lightcoral;
+            padding: 3%;
         }
         
         #btn-connect {
@@ -64,6 +63,25 @@
             background-color: red;
             padding: 10px;
             border-radius: 10px;
+        }
+        
+        #btn-publish {
+            background-color: rgb(0, 154, 206);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        #btn-subscribe {
+            background-color: rgb(0, 154, 206);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .collumn {
+            float: left;
+            width: 33.33%;
+            padding: 10px;
+            height: 400px;
         }
     </style>
 </head>
@@ -92,38 +110,45 @@
 
             </form>
         </div> -->
-        <div id="connect-prt" class="container">
-            <label for="host" style="text-align: center;"><b>Host:</b></label>
-            <br>
-            <input type="text" class="form-control" id="usr connect" placeholder="iot.eclipse.org" name="host" required>
-            <br>
-            <button id="btn-connect" class="btn-primary">Connect</button>
-            <br>
-            <br>
-            <button id="btn-disconnect" class="btn-primary">Dis-Connect</button>
-            <br><br>
-            <div id="status">
-                <h6 id="status">Status: Disconnected</h6>
+        <center>
+            <div id="connect-prt" class="collumn">
+                <label for="host" style="text-align: center;"><b>Host:</b></label>
+                <br>
+                <input type="text" class="form-control" value="wss://test.mosquitto.org:8081/mqtt" id="connect" placeholder="iot.eclipse.org" name="host" required>
+                <br>
+                <button id="btn-connect" class="btn-primary">Connect</button>
+                <br>
+                <br>
+                <button id="btn-disconnect" class="btn-primary">Disconnected</button>
+                <br><br>
+                <div id="status">
+                    <h6 id="status">Status</h6>
+                </div>
             </div>
+        </center>
+    </div>
+    <center>
+        <div id="publish-prt" class="collumn">
+            <label><b>Topic:</b></label>
+            <br>
+            <input type="text" placeholder="Your topic" id="topic" class="form-control" name="host" required>
+            <br>
+            <label><b>Payload:</b></label>
+            <br>
+            <textarea type="text" class="form-control" placeholder="Your payload" id="payload" name="host" required></textarea>
+            <br>
+            <br>
+            <button id="btn-publish" class="btn-primary">Publish</button>
         </div>
-    </div>
-    <div id="publish-prt">
-        <label><b>Topic:</b></label>
-        <br>
-        <input type="text" placeholder="Your topic" id="topic" name="host" required>
-        <br>
-        <label><b>Payload:</b></label>
-        <br>
-        <textarea type="text" placeholder="Your payload" id="payload" name="host" required></textarea>
-        <br>
-        <br>
-        <button id="btn-publish">Publish</button>
-    </div>
-    <div id="subscribe-prt">
-        <label><b>Topic:</b></label>
-        <input type="text" id="top">
-        <button id="btn-subscribe">Subscribe</button>
-    </div>
+    </center>
+    <center>
+        <div id="subscribe-prt" class="collumn">
+            <label><b>Topic:</b></label>
+            <input class="form-control" placeholder="your topic" type="text" id="top">
+            <br>
+            <button id="btn-subscribe" class="btn-primary">Subscribe</button>
+        </div>
+    </center>
 
     <!-- <button id = "btn-connect">Connect<p> -->
     <!-- <button id = "btn-publish">Publish<p> -->
