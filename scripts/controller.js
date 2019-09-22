@@ -1,104 +1,60 @@
-var btnConnect = document.getElementById("btn-connect");
-var btnPublish = document.getElementById("btn-publish");
-var btnDisconnect = document.getElementById("btn-disconnect");
-var btnSubscribe = document.getElementById("btn-subscribe");
-var client;
+$(document).ready(function() {
+    var topic1 = $("#Topic").val();
+    $("#btnDisconnect").click(function() {
+        client.end();
+        //  $("button").attr("disable", true);
+        alert("session ended");
+        $("#status").text("Disconnected !").css('background-color', 'red').css('color', 'white');
+        location.reload();
+    })
+    $("#btnConnect").click(function() {
+        //$("button").attr("disable", false);
+        // console.log($("#Address").val());
+        client = mqtt.connect($("#Address").val())
 
-
-// console.log(client)
-
-btnConnect.addEventListener('click', function(e) {
-    e.preventDefault();
-    var connected = document.getElementById("connect").value;
-    var stat = document.getElementById("status").value;
-    if (connected == "") {
-        console.log("please add a broker")
-    }
-    if (connected == "wss://test.mosquitto.org:8081/mqtt") {
-        console.log("connect button clicked..")
-        client = mqtt.connect("wss://test.mosquitto.org:8081/mqtt")
         client.on("connect", function() {
-            console.log("Successfully connected");
+            $("#status").text("Connected !").css('background-color', 'green').css('color', 'white');
+            console.log("successfully connected");
         })
-    }
+        subs = false;
+        $("#btnPublish").click(function() {
 
+            var topic = $("#Topic").val();
+            var payload = $("#Payload").val();
+            var row = "<tr><td>" + topic + "</td><td>" + payload + "</td><td>" + moment().format('MMMM Do YYYY, h:mm:ss a') + "</td></tr>";
+            $("#tbpublish").append(row);
+            subs = true;
 
-
-    btnPublish.addEventListener('click', function(e) {
-        e.preventDefault();
-        var topic = document.getElementById("topic").value;
-        var payload = document.getElementById("payload").value;
-
-        console.log("Publish button Clicked.. ")
-        client.publish(topic, payload)
-
-
-    })
-    btnSubscribe.addEventListener('click', function(e) {
-        e.preventDefault();
-        var top = document.getElementById("top").value;
-        console.log("Subscribed button Clicked.." + top)
-        client.subscribe(top)
-
-        client.on("message", function(topic, payload) {
-            console.log("message : " + topic + " : " + payload)
+            client.publish(topic, payload)
         })
 
+        $("#btnSubscribe").click(function() {
+            var topic = $("#SubTopic").val();
+            var row = "<tr><td>" + topic + "</td><td>" + moment().format('MMMM Do YYYY, h:mm:ss a') + "</td></tr>";
+            $("#tbsubscribe").append(row);
+            $("#btnPublish").click(function() {
+                var payload = $("#Payload").val();
+                if (topic == topic1) {
+                    var row = "<tr><td>" + topic + "</td><td>" + payload + "</td><td>" + moment().format('MMMM Do YYYY, h:mm:ss a') + "</td></tr>";
+                    $("#tbbroker").append(row);
+                }
 
+            });
+            topic1 = $("#Topic").val();
+
+            client.subscribe(topic)
+            client.on("message", function(topic, payload) {
+                console.log([topic, payload].join(": "));
+            })
+
+        })
+        $("#btnUnsubscribe").click(function() {
+            var topic = $("#SubTopic").val();
+            client.unsubscribe(topic)
+            topic1 = "";
+
+        })
 
 
     })
-
-    btnDisconnect.addEventListener('click', function(e) {
-        client.end()
-        console.log("Successfully disconnected");
-
-
-    })
-
 })
-
-
-
-
-// // basic functionalities
-// client = mqtt.connect("ws://broker.hivemq.com:8000/mqtt")
-// client.subscribe("mqtt/demo")
-
-// client.on("connect", function() {
-//     console.log("Successfully connected");
-// })
-
-// client.on("message", function(topic, payload) {
-//     console.log([topic, payload].join(": "));
-//     client.end();
-// })
-
-// client.publish("mqtt/demo", "hello world!")
-
-// // advance functionalities
-// client = mqtt.connect("ws://broker.hivemq.com:8000/mqtt")
-// client.subscribe("mqtt/demo", function (err){
-//   if (err){
-//     console.log(err);
-//   } else {
-//     console.log("subscribed")
-//   }
-// })
-
-// client.on("connect", function(){
-//     console.log("Successfully connected");
-// })
-
-// client.on("message", function (topic, payload) {
-//   console.log([topic, payload].join(": "));
-//   client.end();
-// })
-
-// client.publish("mqtt/demo", "hello world!", function(err){
-//   if (err){
-//     console.log(err)
-//   } else {
-//     console.log("published")
-//   }
-// })
